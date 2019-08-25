@@ -30,3 +30,37 @@ $("#submit").on("click", function(event) {
   database.ref().push(newTrain);
   $("form")[0].reset(); 
 });
+
+database.ref().on("child_added", function(child) {
+  var firstTrain = moment(child.val().start, "hh:mm");
+  var timeDifference = moment().diff(moment(firstTrain), "minutes");
+  var remainder = timeDifference % child.val().frequency;
+  var minutesAway = child.val().frequency - remainder;
+  var nextTrain = moment().add(minutesAway, "minutes");
+  nextTrain = moment(nextTrain).format("hh:mm");
+
+  $("#trains").append("<tr><td>" + child.val().name + 
+    "</td><td>" + child.val().destination +
+    "</td><td>" + child.val().frequency +
+    "</td><td>"	+ nextTrain +
+    "</td><td>" + minutesAway +
+    "</td></tr>")
+
+  });
+
+  database.ref().on("child_added", function(child) {
+    var firstTrain = moment(child.val().start, "hh:mm");
+    var timeDifference = moment().diff(moment(firstTrain), "minutes");
+    var remainder = timeDifference % child.val().frequency;
+    var minutesAway = child.val().frequency - remainder;
+    var nextTrain = moment().add(minutesAway, "minutes");
+    nextTrain = moment(nextTrain).format("hh:mm");
+
+    $("#trains").append("<tr><td>" + child.val().name + 
+      "</td><td>" + child.val().destination +
+      "</td><td>" + child.val().frequency +
+      "</td><td>"	+ nextTrain +
+      "</td><td>" + minutesAway +
+      "</td></tr>")
+
+    });
