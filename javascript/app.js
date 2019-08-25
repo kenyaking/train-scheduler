@@ -28,5 +28,5 @@ $("#submit").on("click", function(event) {
   }
 
   database.ref().push(newTrain);
-  $("form")[0].reset();
+  $("form")[0].reset(); 
 });
